@@ -41,4 +41,9 @@ public class PaymentDAOImpl extends AbstractDAOImpl<Payment, Long>{
     public List<Payment> getAll() throws PersistenciaDawException {
         return super.getAll();
     }
+
+    @Override
+    public void deleteAll() throws PersistenciaDawException {
+        super.deleteAll();
+    }
 }
