@@ -2,6 +2,8 @@ package com.project.Avoar.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "tb_airplane")
 public class Airplane {
@@ -85,5 +87,26 @@ public class Airplane {
 
     public void setQuantityFirstClass(Integer quantityFirstClass) {
         this.quantityFirstClass = quantityFirstClass;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Airplane airplane = (Airplane) o;
+        return Objects.equals(id, airplane.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Airplane{" +
+                "id=" + id +
+                ", model='" + model + '\'' +
+                ", totalCapacity=" + totalCapacity +
+                '}';
     }
 }

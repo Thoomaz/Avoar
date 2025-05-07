@@ -2,6 +2,8 @@ package com.project.Avoar.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "tb_airport")
 public class Airport {
@@ -72,5 +74,25 @@ public class Airport {
 
     public void setCodeIata(String codeIata) {
         this.codeIata = codeIata;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Airport airport = (Airport) o;
+        return Objects.equals(id, airport.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Airport{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

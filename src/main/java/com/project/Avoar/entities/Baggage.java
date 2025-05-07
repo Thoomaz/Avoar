@@ -2,6 +2,8 @@ package com.project.Avoar.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "tb_baggage")
 public class Baggage {
@@ -42,5 +44,24 @@ public class Baggage {
 
     public void setWeight(Double weight) {
         this.weight = weight;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Baggage baggage = (Baggage) o;
+        return Objects.equals(id, baggage.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Baggage{" +
+                "id=" + id +
+                '}';
     }
 }
