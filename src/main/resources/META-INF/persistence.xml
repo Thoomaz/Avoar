@@ -8,6 +8,12 @@
 
         <!-- TODO: Adicionar as entidades que vocês criaram -->
         <class>com.project.Avoar.entities.Airplane</class>
+        <class>com.project.Avoar.entities.Airport</class>
+        <class>com.project.Avoar.entities.Baggage</class>
+        <class>com.project.Avoar.entities.Flight</class>
+        <class>com.project.Avoar.entities.Ticket</class>
+        <class>com.project.Avoar.entities.User</class>
+        <class>com.project.Avoar.entities.Payment</class>
 
         <properties>
 
