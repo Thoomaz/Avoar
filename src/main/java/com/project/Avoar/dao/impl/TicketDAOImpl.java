@@ -41,4 +41,9 @@ public class TicketDAOImpl extends AbstractDAOImpl<Ticket, Long>{
     public List<Ticket> getAll() throws PersistenciaDawException {
         return super.getAll();
     }
+
+    @Override
+    public void deleteAll() throws PersistenciaDawException {
+        super.deleteAll();
+    }
 }

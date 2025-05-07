@@ -41,4 +41,9 @@ public class BaggageDAOImpl extends AbstractDAOImpl<Baggage, Long>{
     public List<Baggage> getAll() throws PersistenciaDawException {
         return super.getAll();
     }
+
+    @Override
+    public void deleteAll() throws PersistenciaDawException {
+        super.deleteAll();
+    }
 }

@@ -102,4 +102,22 @@ public abstract class AbstractDAOImpl<E, T> implements DAO<E, T> {
         }
     }
 
+    public void deleteAll() throws PersistenciaDawException {
+        try (EntityManager em = getEntityManager()) {
+            EntityTransaction transaction = em.getTransaction();
+            transaction.begin();
+            try {
+                Query query = em.createQuery(String.format("DELETE FROM %s", this.entityClass.getSimpleName()));
+                query.executeUpdate();
+                transaction.commit();
+            } catch (PersistenceException pe) {
+                pe.printStackTrace();
+                if (transaction.isActive()) {
+                    transaction.rollback();
+                }
+                throw new PersistenciaDawException("Ocorreu algum erro ao tentar remover todas as entidades.", pe);
+            }
+        }
+    }
+
 }

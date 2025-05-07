@@ -41,4 +41,9 @@ public class UserDAOImpl extends AbstractDAOImpl<User, Long>{
     public List<User> getAll() throws PersistenciaDawException {
         return super.getAll();
     }
+
+    @Override
+    public void deleteAll() throws PersistenciaDawException {
+        super.deleteAll();
+    }
 }

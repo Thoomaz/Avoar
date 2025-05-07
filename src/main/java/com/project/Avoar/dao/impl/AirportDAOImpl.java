@@ -41,4 +41,9 @@ public class AirportDAOImpl extends AbstractDAOImpl<Airport, Long>{
     public List<Airport> getAll() throws PersistenciaDawException {
         return super.getAll();
     }
+
+    @Override
+    public void deleteAll() throws PersistenciaDawException {
+        super.deleteAll();
+    }
 }

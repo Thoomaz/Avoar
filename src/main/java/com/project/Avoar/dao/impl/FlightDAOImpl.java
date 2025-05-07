@@ -41,4 +41,9 @@ public class FlightDAOImpl extends AbstractDAOImpl<Flight, Long>{
     public List<Flight> getAll() throws PersistenciaDawException {
         return super.getAll();
     }
+
+    @Override
+    public void deleteAll() throws PersistenciaDawException {
+        super.deleteAll();
+    }
 }
