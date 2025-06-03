@@ -2,7 +2,9 @@ package com.project.Avoar.entities;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_user")
@@ -14,6 +16,8 @@ public class User {
     private String name;
     private String email;
     private String password;
+    @OneToMany
+    private Set<Ticket> tickets = new HashSet<>();
 
     public User() {}
 
@@ -54,6 +58,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(Set<Ticket> tickets) {
+        this.tickets = tickets;
     }
 
     @Override

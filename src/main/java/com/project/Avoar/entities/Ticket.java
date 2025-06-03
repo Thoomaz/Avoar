@@ -1,9 +1,12 @@
 package com.project.Avoar.entities;
 
+import com.project.Avoar.entities.enumns.ClassAirplane;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_ticket")
@@ -14,13 +17,26 @@ public class Ticket {
 
     private String code;
     private String seat;
-    private String classAirplane;
+    private ClassAirplane classAirplane;
     private LocalDate date;
     private Double value;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToOne(mappedBy = "ticket")
+    private Payment payment;
+
+    @OneToMany
+    private Set<Flight> flights = new HashSet<>();
+
+    @OneToMany
+    private Set<Baggage> baggages = new HashSet<>();
+
     public Ticket() {}
 
-    public Ticket(Long id, String code, String seat, String classAirplane, LocalDate date, Double value) {
+    public Ticket(Long id, String code, String seat, ClassAirplane classAirplane, LocalDate date, Double value) {
         this.id = id;
         this.code = code;
         this.seat = seat;
@@ -53,11 +69,11 @@ public class Ticket {
         this.seat = seat;
     }
 
-    public String getClassAirplane() {
+    public ClassAirplane getClassAirplane() {
         return classAirplane;
     }
 
-    public void setClassAirplane(String classAirplane) {
+    public void setClassAirplane(ClassAirplane classAirplane) {
         this.classAirplane = classAirplane;
     }
 
@@ -75,6 +91,38 @@ public class Ticket {
 
     public void setValue(Double value) {
         this.value = value;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
+    public Set<Flight> getFlights() {
+        return flights;
+    }
+
+    public void setFlights(Set<Flight> flights) {
+        this.flights = flights;
+    }
+
+    public Set<Baggage> getBaggages() {
+        return baggages;
+    }
+
+    public void setBaggages(Set<Baggage> baggages) {
+        this.baggages = baggages;
     }
 
     @Override
