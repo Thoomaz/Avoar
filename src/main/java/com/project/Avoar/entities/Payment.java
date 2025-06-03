@@ -1,5 +1,6 @@
 package com.project.Avoar.entities;
 
+import com.project.Avoar.entities.enumns.PaymentStatus;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -14,11 +15,14 @@ public class Payment {
 
     private String paymentMethod;
     private LocalDate date;
-    private String status;
+    private PaymentStatus status;
+
+    @OneToMany
+    private Ticket ticket;
 
     public Payment() {}
 
-    public Payment(Long id, String paymentMethod, LocalDate date, String status) {
+    public Payment(Long id, String paymentMethod, LocalDate date, PaymentStatus status) {
         this.id = id;
         this.paymentMethod = paymentMethod;
         this.date = date;
@@ -49,12 +53,20 @@ public class Payment {
         this.date = date;
     }
 
-    public String getStatus() {
+    public PaymentStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(PaymentStatus status) {
         this.status = status;
+    }
+
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
     }
 
     @Override

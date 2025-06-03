@@ -1,5 +1,6 @@
 package com.project.Avoar.entities;
 
+import com.project.Avoar.entities.enumns.BaggageType;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -11,12 +12,16 @@ public class Baggage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String type;
+    private BaggageType type;
     private Double weight;
+
+    @ManyToOne
+    @JoinColumn(name = "ticket_id")
+    private Ticket ticket;
 
     public Baggage() {}
 
-    public Baggage(Long id, String type, Double weight) {
+    public Baggage(Long id, BaggageType type, Double weight) {
         this.id = id;
         this.type = type;
         this.weight = weight;
@@ -30,11 +35,11 @@ public class Baggage {
         this.id = id;
     }
 
-    public String getType() {
+    public BaggageType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(BaggageType type) {
         this.type = type;
     }
 
@@ -44,6 +49,14 @@ public class Baggage {
 
     public void setWeight(Double weight) {
         this.weight = weight;
+    }
+
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
     }
 
     @Override

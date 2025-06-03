@@ -2,7 +2,9 @@ package com.project.Avoar.entities;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_airport")
@@ -16,6 +18,9 @@ public class Airport {
     private String state;
     private String country;
     private String codeIata;
+
+    @OneToMany
+    private Set<Flight> flights = new HashSet<>();
 
     public Airport(){}
 
@@ -74,6 +79,14 @@ public class Airport {
 
     public void setCodeIata(String codeIata) {
         this.codeIata = codeIata;
+    }
+
+    public Set<Flight> getFlights() {
+        return flights;
+    }
+
+    public void setFlights(Set<Flight> flights) {
+        this.flights = flights;
     }
 
     @Override
