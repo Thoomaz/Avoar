@@ -16,7 +16,7 @@ public class User {
     private String name;
     private String email;
     private String password;
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private Set<Ticket> tickets = new HashSet<>();
 
     public User() {}

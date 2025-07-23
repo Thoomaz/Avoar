@@ -17,7 +17,7 @@ public class Payment {
     private LocalDate date;
     private PaymentStatus status;
 
-    @OneToMany
+    @OneToOne
     private Ticket ticket;
 
     public Payment() {}

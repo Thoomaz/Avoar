@@ -19,7 +19,7 @@ public class Ticket {
     private String seat;
     private ClassAirplane classAirplane;
     private LocalDate date;
-    private Double value;
+    private Double ticketValue;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -28,11 +28,8 @@ public class Ticket {
     @OneToOne(mappedBy = "ticket")
     private Payment payment;
 
-    @OneToMany
+    @OneToMany(mappedBy = "ticket")
     private Set<Flight> flights = new HashSet<>();
-
-    @OneToMany
-    private Set<Baggage> baggages = new HashSet<>();
 
     public Ticket() {}
 
@@ -42,7 +39,7 @@ public class Ticket {
         this.seat = seat;
         this.classAirplane = classAirplane;
         this.date = date;
-        this.value = value;
+        this.ticketValue = value;
     }
 
     public Long getId() {
@@ -85,12 +82,12 @@ public class Ticket {
         this.date = date;
     }
 
-    public Double getValue() {
-        return value;
+    public Double getTicketValue() {
+        return ticketValue;
     }
 
-    public void setValue(Double value) {
-        this.value = value;
+    public void setTicketValue(Double ticketValue) {
+        this.ticketValue = ticketValue;
     }
 
     public User getUser() {
@@ -115,14 +112,6 @@ public class Ticket {
 
     public void setFlights(Set<Flight> flights) {
         this.flights = flights;
-    }
-
-    public Set<Baggage> getBaggages() {
-        return baggages;
-    }
-
-    public void setBaggages(Set<Baggage> baggages) {
-        this.baggages = baggages;
     }
 
     @Override
