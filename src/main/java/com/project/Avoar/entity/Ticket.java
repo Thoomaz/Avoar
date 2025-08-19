@@ -1,6 +1,6 @@
-package com.project.Avoar.entities;
+package com.project.Avoar.entity;
 
-import com.project.Avoar.entities.enumns.ClassAirplane;
+import com.project.Avoar.entity.enumns.ClassAirplane;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;

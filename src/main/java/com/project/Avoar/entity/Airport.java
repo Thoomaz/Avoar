@@ -1,4 +1,4 @@
-package com.project.Avoar.entities;
+package com.project.Avoar.entity;
 
 import jakarta.persistence.*;
 

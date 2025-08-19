@@ -1,4 +1,4 @@
-package com.project.Avoar.entities.enumns;
+package com.project.Avoar.entity.enumns;
 
 public enum BaggageType {
     DISPATCHED,

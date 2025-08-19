@@ -1,6 +1,6 @@
-package com.project.Avoar.entities;
+package com.project.Avoar.entity;
 
-import com.project.Avoar.entities.enumns.PaymentStatus;
+import com.project.Avoar.entity.enumns.PaymentStatus;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
