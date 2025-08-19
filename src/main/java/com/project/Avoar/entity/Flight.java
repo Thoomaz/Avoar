@@ -11,10 +11,17 @@ public class Flight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String code;
     private LocalDate departureDate;
     private LocalDate arrivalDate;
+    private String departurePlace;
+    private String arrivalPlace;
+    private Double priceEconomic;
+    private Double priceExecutive;
+    private Double priceFirstClass;
+
+    private int seatAvaliableEconomic;
+    private int seatAvaliableExecutive;
+    private int seatAvaliableFirstClass;
 
     @ManyToOne
     @JoinColumn(name = "ticket_id")
@@ -34,12 +41,13 @@ public class Flight {
 
     public Flight() {}
 
-    public Flight(Long id, String code, LocalDate departureDate, LocalDate arrivalDate) {
+    public Flight(Long id, LocalDate departureDate, LocalDate arrivalDate) {
         this.id = id;
-        this.code = code;
         this.departureDate = departureDate;
         this.arrivalDate = arrivalDate;
     }
+
+
 
     public Long getId() {
         return id;
@@ -47,14 +55,6 @@ public class Flight {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public LocalDate getDepartureDate() {
@@ -103,6 +103,71 @@ public class Flight {
 
     public void setAirplane(Airplane airplane) {
         this.airplane = airplane;
+    }
+
+    public String getDeparturePlace() {
+        return departurePlace;
+    }
+
+    public void setDeparturePlace(String departurePlace) {
+        this.departurePlace = departurePlace;
+    }
+
+    public String getArrivalPlace() {
+        return arrivalPlace;
+    }
+
+    public void setArrivalPlace(String arrivalPlace) {
+        this.arrivalPlace = arrivalPlace;
+    }
+
+
+    public Double getPriceEconomic() {
+        return priceEconomic;
+    }
+
+    public void setPriceEconomic(Double priceEconomic) {
+        this.priceEconomic = priceEconomic;
+    }
+
+    public Double getPriceExecutive() {
+        return priceExecutive;
+    }
+
+    public void setPriceExecutive(Double priceExecutive) {
+        this.priceExecutive = priceExecutive;
+    }
+
+    public Double getPriceFirstClass() {
+        return priceFirstClass;
+    }
+
+    public void setPriceFirstClass(Double priceFirstClass) {
+        this.priceFirstClass = priceFirstClass;
+    }
+
+    public int getSeatAvaliableEconomic() {
+        return seatAvaliableEconomic;
+    }
+
+    public void setSeatAvaliableEconomic(int seatAvaliableEconomic) {
+        this.seatAvaliableEconomic = seatAvaliableEconomic;
+    }
+
+    public int getSeatAvaliableExecutive() {
+        return seatAvaliableExecutive;
+    }
+
+    public void setSeatAvaliableExecutive(int seatAvaliableExecutive) {
+        this.seatAvaliableExecutive = seatAvaliableExecutive;
+    }
+
+    public int getSeatAvaliableFirstClass() {
+        return seatAvaliableFirstClass;
+    }
+
+    public void setSeatAvaliableFirstClass(int seatAvaliableFirstClass) {
+        this.seatAvaliableFirstClass = seatAvaliableFirstClass;
     }
 
     @Override

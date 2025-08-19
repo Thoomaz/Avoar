@@ -4,6 +4,8 @@ import com.project.Avoar.entity.enumns.PaymentStatus;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -17,8 +19,8 @@ public class Payment {
     private LocalDate date;
     private PaymentStatus status;
 
-    @OneToOne
-    private Ticket ticket;
+    @OneToMany(mappedBy = "payment", cascade = CascadeType.ALL)
+    private List<Ticket> tickets = new ArrayList<>();
 
     public Payment() {}
 
@@ -26,6 +28,10 @@ public class Payment {
         this.id = id;
         this.paymentMethod = paymentMethod;
         this.date = date;
+        this.status = status;
+    }
+
+    public Payment(PaymentStatus status) {
         this.status = status;
     }
 
@@ -61,12 +67,12 @@ public class Payment {
         this.status = status;
     }
 
-    public Ticket getTicket() {
-        return ticket;
+    public List<Ticket> getTickets() {
+        return tickets;
     }
 
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
     }
 
     @Override

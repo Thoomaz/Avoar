@@ -8,7 +8,7 @@ public class UserMapper {
     public static UserResponseDTO toDTO(User user) {
         if (user == null) return null;
 
-        return new UserResponseDTO(user.getName());
+        return new UserResponseDTO(user.getId(), user.getName());
     }
 
     public static User toEntity(UserRequestDTO dto) {

@@ -4,9 +4,7 @@ import com.project.Avoar.entity.enumns.ClassAirplane;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_ticket")
@@ -14,32 +12,32 @@ public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String code;
     private String seat;
+    @Enumerated(EnumType.STRING)
     private ClassAirplane classAirplane;
     private LocalDate date;
     private Double ticketValue;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne(mappedBy = "ticket")
+    @ManyToOne
+    @JoinColumn(name = "payment_id")
     private Payment payment;
 
     @OneToMany(mappedBy = "ticket")
-    private Set<Flight> flights = new HashSet<>();
+    private List<Flight> flights = new ArrayList<>();
 
     public Ticket() {}
 
-    public Ticket(Long id, String code, String seat, ClassAirplane classAirplane, LocalDate date, Double value) {
+    public Ticket(Long id, String seat, ClassAirplane classAirplane, LocalDate date, Double value, Payment payment) {
         this.id = id;
-        this.code = code;
         this.seat = seat;
         this.classAirplane = classAirplane;
         this.date = date;
         this.ticketValue = value;
+        this.payment = payment;
     }
 
     public Long getId() {
@@ -48,14 +46,6 @@ public class Ticket {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getSeat() {
@@ -106,11 +96,11 @@ public class Ticket {
         this.payment = payment;
     }
 
-    public Set<Flight> getFlights() {
+    public List<Flight> getFlights() {
         return flights;
     }
 
-    public void setFlights(Set<Flight> flights) {
+    public void setFlights(List<Flight> flights) {
         this.flights = flights;
     }
 
