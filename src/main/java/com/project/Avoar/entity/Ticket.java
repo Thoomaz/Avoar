@@ -18,8 +18,8 @@ public class Ticket {
     private LocalDate date;
     private Double ticketValue;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
@@ -31,13 +31,14 @@ public class Ticket {
 
     public Ticket() {}
 
-    public Ticket(Long id, String seat, ClassAirplane classAirplane, LocalDate date, Double value, Payment payment) {
+    public Ticket(Long id, String seat, ClassAirplane classAirplane, LocalDate date, Double value, Payment payment, User user) {
         this.id = id;
         this.seat = seat;
         this.classAirplane = classAirplane;
         this.date = date;
         this.ticketValue = value;
         this.payment = payment;
+        this.user = user;
     }
 
     public Long getId() {

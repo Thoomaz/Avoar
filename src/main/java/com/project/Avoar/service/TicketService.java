@@ -27,43 +27,59 @@ public class TicketService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private PaymentService paymentService;
+
     public List<Ticket> findAllByUser(Long userId){
-        return repository.findAllByUser(userId);
+        return repository.findAllByUserId(userId);
     }
 
     public List<Ticket> book(Long userId, Long flightId, int economic, int executive, int firstClass){
         User user = userService.findById(userId);
         Flight flight = flightService.detailsById(flightId);
 
-        List<Ticket> tickets = generateTickets(flight, economic, executive, firstClass);
+        // Cria o pagamento PENDING
+        Payment payment = new Payment(PaymentStatus.PENDING);
+
+        // Gera tickets por classe
+        List<Ticket> tickets = new ArrayList<>();
+        tickets.addAll(generateTicketsByClass(flight, economic, ClassAirplane.ECONOMIC, flight.getPriceEconomic(), user, payment));
+        tickets.addAll(generateTicketsByClass(flight, executive, ClassAirplane.EXECUTIVE, flight.getPriceExecutive(), user, payment));
+        tickets.addAll(generateTicketsByClass(flight, firstClass, ClassAirplane.FIRST_CLASS, flight.getPriceFirstClass(), user, payment));
+
+        // Associa tickets ao pagamento
+        payment.getTickets().addAll(tickets);
+
+        // Persiste o pagamento (cascade persiste todos os tickets)
+        paymentService.save(payment);
+
+        // Persiste o usuário atualizado (opcional, caso queira manter lista de tickets)
         user.getTickets().addAll(tickets);
         userService.save(user);
 
         return tickets;
     }
 
-    private List<Ticket> generateTickets(Flight flight, int economic, int executive, int firstClass) {
-        List<Ticket> tickets = new ArrayList<>();
-
-        Payment payment = new Payment(PaymentStatus.PENDING);
-
-        tickets.addAll(generateTicketsByClass(flight, economic, ClassAirplane.ECONOMIC, flight.getPriceEconomic(), payment));
-        tickets.addAll(generateTicketsByClass(flight, executive, ClassAirplane.EXECUTIVE, flight.getPriceExecutive(), payment));
-        tickets.addAll(generateTicketsByClass(flight, firstClass, ClassAirplane.FIRST_CLASS, flight.getPriceFirstClass(), payment));
-
-        return repository.saveAll(tickets);
-    }
-    private List<Ticket> generateTicketsByClass(Flight flight, int quantity, ClassAirplane classAirplane, double price, Payment payment) {
+    // Gera os tickets por classe
+    private List<Ticket> generateTicketsByClass(Flight flight, int quantity, ClassAirplane classAirplane,
+                                                double price, User user, Payment payment) {
         List<Ticket> tickets = new ArrayList<>();
         for (int i = 0; i < quantity; i++) {
-            tickets.add(new Ticket(
+            Ticket ticket = new Ticket(
                     null,
                     getSeats(classAirplane),
                     classAirplane,
                     flight.getDepartureDate(),
                     price,
-                    payment
-            ));
+                    payment,
+                    user
+            );
+            tickets.add(ticket);
+
+            // Relação bidirecional
+            user.getTickets().add(ticket);
+            payment.getTickets().add(ticket);
+            ticket.getFlights().add(flight);
         }
         return tickets;
     }

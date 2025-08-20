@@ -1,7 +1,5 @@
 package com.project.Avoar.dto.response;
 
-import org.springframework.cglib.core.Local;
-
 import java.time.LocalDate;
 
 public record FlightResponseDTO(

@@ -18,8 +18,9 @@ public class Payment {
     private String paymentMethod;
     private LocalDate date;
     private PaymentStatus status;
+    private Double valuePayment;
 
-    @OneToMany(mappedBy = "payment", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "payment", cascade = CascadeType.PERSIST)
     private List<Ticket> tickets = new ArrayList<>();
 
     public Payment() {}
@@ -33,6 +34,11 @@ public class Payment {
 
     public Payment(PaymentStatus status) {
         this.status = status;
+    }
+
+    public Payment(Double value, String paymentMethod) {
+        this.valuePayment = value;
+        this.paymentMethod = paymentMethod;
     }
 
     public Long getId() {
@@ -73,6 +79,14 @@ public class Payment {
 
     public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
+    }
+
+    public Double getValuePayment() {
+        return valuePayment;
+    }
+
+    public void setValuePayment(Double valuePayment) {
+        this.valuePayment = valuePayment;
     }
 
     @Override

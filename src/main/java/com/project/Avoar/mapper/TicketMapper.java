@@ -10,7 +10,7 @@ public class TicketMapper {
         String departurePlace = obj.getFlights().get(0).getDeparturePlace();
         String arrivalPlace = obj.getFlights().get(0).getArrivalPlace();
         return new TicketDTO(obj.getId(),
-                obj.getSeat(), obj.getClassAirplane(), departurePlace, arrivalPlace, obj.getTicketValue());
+                obj.getSeat(), obj.getClassAirplane(), departurePlace, arrivalPlace, obj.getTicketValue(), obj.getPayment().getStatus());
     }
 
     public static List<TicketDTO> toDTOList(List<Ticket> objList){
